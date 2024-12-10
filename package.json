@@ -1,0 +1,13 @@
+{
+  "name": "show-art",
+  "version": "1.0.0",
+  "description": "Show Art Project",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./styles.css -o ./dist/output.css --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
