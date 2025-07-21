@@ -3230,3 +3230,318 @@ body.nav-open {
         background: var(--primary-bg);
     }
 }
+
+/* Mobile Bottom Navigation */
+@media screen and (max-width: 992px) {
+    /* Hide side navigation on mobile */
+    .sidebar {
+        display: none;
+    }
+    
+    /* Show mobile header at top */
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        height: var(--mobile-header-height);
+        background-color: var(--primary-bg);
+        border-bottom: 1px solid var(--border-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 990;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    /* Create bottom navigation */
+    .mobile-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: var(--primary-bg);
+        border-top: 1px solid var(--border-color);
+        z-index: 990;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    .mobile-nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary-text);
+        text-decoration: none;
+        flex: 1;
+        padding: 8px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-nav-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    
+    .mobile-nav-text {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+    
+    .mobile-nav-link.active {
+        color: var(--accent-color);
+    }
+    
+    /* Adjust main content to accommodate fixed header and footer nav */
+    .main-content {
+        margin-top: var(--mobile-header-height);
+        margin-bottom: 60px; /* Height of bottom nav */
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    /* Remove existing mobile menu toggle */
+    .mobile-menu-toggle {
+        display: none;
+    }
+    
+    /* Make sections fit between header and footer nav */
+    .section:last-child {
+        margin-bottom: 80px;
+    }
+}
+
+/* Enhanced mobile navigation styles */
+@media screen and (max-width: 992px) {
+    .mobile-nav-link {
+        position: relative;
+    }
+    
+    .mobile-nav-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 28px;
+        margin-bottom: 3px;
+        transition: transform 0.3s ease;
+    }
+    
+    .mobile-nav-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke-width: 1.5;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-nav-text {
+        font-family: var(--heading-font);
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+    }
+    
+    .mobile-nav-link.active {
+        position: relative;
+    }
+    
+    .mobile-nav-link.active::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--accent-color);
+    }
+    
+    .mobile-nav-link.active .mobile-nav-icon {
+        transform: translateY(-2px);
+    }
+    
+    .mobile-nav-link.active .mobile-nav-text {
+        font-weight: 500;
+    }
+    
+    .mobile-nav-link.active .mobile-nav-icon svg {
+        stroke-width: 2;
+    }
+    
+    /* Elegant header styling for mobile */
+    .mobile-header .brand h1 {
+        font-family: var(--heading-font);
+        font-weight: 500;
+        letter-spacing: 0.05em;
+    }
+    
+    /* Elegant mobile navigation bar */
+    .mobile-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 65px;
+        background-color: var(--primary-bg);
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        z-index: 990;
+        box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.06);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Elegant mobile header */
+@media screen and (max-width: 992px) {
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 25px;
+        height: var(--mobile-header-height);
+        background-color: var(--primary-bg);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 990;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+    }
+    
+    .mobile-header .brand h1 {
+        font-family: var(--heading-font);
+        font-size: 1.5rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    
+    /* Make mobile typography more elegant */
+    .section h2, 
+    .section-title {
+        font-family: var(--heading-font);
+        font-weight: 500;
+    }
+    
+    .exhibition-title {
+        font-family: var(--heading-font);
+        font-weight: 500;
+    }
+    
+    /* Additional elegant touches for mobile navigation */
+    .mobile-nav {
+        height: 68px;
+        background-color: var(--primary-bg);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -3px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .mobile-nav-link::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-nav-link.active::before {
+        top: -1px;
+        background-color: var(--accent-color);
+        width: 20px;
+        height: 2px;
+        border-radius: 1px;
+    }
+    
+    /* Enhance mobile nav icon transitions */
+    .mobile-nav-icon {
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .mobile-nav-link.active .mobile-nav-icon {
+        transform: translateY(-4px);
+    }
+    
+    .mobile-nav-link.active .mobile-nav-text {
+        transform: translateY(-2px);
+    }
+}
+
+/* Additional elegant styling for the mobile experience */
+@media screen and (max-width: 992px) {
+    /* More sophisticated mobile typography */
+    body {
+        letter-spacing: 0.01em;
+    }
+    
+    .mobile-nav-text {
+        font-family: var(--heading-font);
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        transition: all 0.3s ease;
+    }
+    
+    /* Refined indicator for active navigation item */
+    .mobile-nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: calc(100% - 42px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        opacity: 0.7;
+        background-color: var(--accent-color);
+    }
+    
+    /* Refined transitions for navigation */
+    .mobile-nav-link {
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    /* More elegant section titles */
+    .section-title {
+        font-family: var(--heading-font);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+    
+    .section-title::after {
+        height: 1px;
+        width: 40px;
+        background-color: var(--accent-color);
+        opacity: 0.7;
+    }
+    
+    /* Elegant info card on mobile */
+    .info-card {
+        border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    
+    .info-card h3 {
+        font-family: var(--heading-font);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+    
+    /* Better spacing for the last section */
+    .section:last-child {
+        margin-bottom: 75px;
+    }
+}

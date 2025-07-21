@@ -105,85 +105,128 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Navigation handling - improved version for smoother scrolling
-    const navLinks2 = document.querySelectorAll('.nav-link');
-
-navLinks2.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+    // Handle section visibility and navigation active states for both desktop and mobile
+    function handleNavigation() {
+        const sections = document.querySelectorAll('.slide, .section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        
+        function setActiveLink() {
+            let fromTop = window.scrollY + 100;
             
-            // Update active states in navigation
-            navLinks2.forEach(navLink => navLink.classList.remove('active'));
-            this.classList.add('active');
-            
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
+            // Get all section positions
+            sections.forEach((section, i) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
                 // Calculate proper offset considering fixed elements
                 let offset = 0;
-                const sidebar2 = document.querySelector('.sidebar');
                 
                 if (window.innerWidth <= 992) {
                     // For mobile, consider the height of the fixed header
-                    offset = sidebar2.offsetHeight;
+                    offset = 60; // mobile header height
                 }
                 
-                // Scroll to the section with proper offset
-                const sectionTop = targetSection.getBoundingClientRect().top;
-                const offsetPosition = sectionTop + window.pageYOffset - offset;
+                // Adjust the scroll position with the offset
+                const scrollPosition = fromTop - offset;
                 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Update active section on scroll - improved version
-    window.addEventListener('scroll', function() {
-        // Debounce for performance
-        if (!window.requestAnimationFrame) {
-            // For older browsers
-            window.requestAnimationFrame = function(callback) {
-                return setTimeout(callback, 1000/60);
-            };
-        }
-        
-        window.requestAnimationFrame(function() {
-            const scrollPosition = window.scrollY;
-            
-            // Get all sections
-            const sections = document.querySelectorAll('#home, .section');
-            
-            // Check each section's position and update nav accordingly
-            sections.forEach(section => {
-                // Calculate section position with offset
-                let offset = 0;
-                const sidebar3 = document.querySelector('.sidebar');
-                
-                if (window.innerWidth <= 992) {
-                    offset = sidebar3.offsetHeight;
-                }
-                
-                const sectionTop = section.offsetTop - offset - 100; // Additional offset for better UX
-                const sectionBottom = sectionTop + section.offsetHeight;
-                const sectionId = section.getAttribute('id');
-                
+                // If the section is currently in view
                 if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    // Update nav links
-                    navLinks2.forEach(link => {
+                    const id = section.getAttribute('id');
+                    
+                    // Update desktop nav links
+                    navLinks.forEach(link => {
                         link.classList.remove('active');
-                        
-                        if (link.getAttribute('href') === `#${sectionId}`) {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                    
+                    // Update mobile nav links
+                    mobileNavLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
                             link.classList.add('active');
                         }
                     });
                 }
             });
+        }
+        
+        // Throttle scroll events for better performance
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    setActiveLink();
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
-    });
+        
+        // Set active link on initial load
+        setActiveLink();
+        
+        // Handle clicks on desktop nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and add to clicked link
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Get target section
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                if (target) {
+                    // Calculate position
+                    const targetPosition = target.offsetTop;
+                    let offset = 0;
+                    
+                    if (window.innerWidth <= 992) {
+                        offset = 60; // mobile header height
+                    }
+                    
+                    // Scroll to section
+                    window.scrollTo({
+                        top: targetPosition - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Handle clicks on mobile nav links
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and add to clicked link
+                mobileNavLinks.forEach(navLink => navLink.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Get target section
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                if (target) {
+                    // Calculate position
+                    const targetPosition = target.offsetTop;
+                    let offset = 60; // mobile header height
+                    
+                    // Scroll to section
+                    window.scrollTo({
+                        top: targetPosition - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    // Initialize navigation
+    handleNavigation();
 
     // Filter gallery items
     const filterButtons = document.querySelectorAll('.filter-btn');
